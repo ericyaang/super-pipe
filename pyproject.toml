@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "super-pipe"
+version = "0.1.0"
+description = ""
+authors = ["ericyaang <eric_yang@hotmail.com>"]
+readme = "README.md"
+packages = [{include = "core", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+prefect = "^2.10.21"
+prefect-gcp = {extras = ["bigquery", "cloud_storage"], version = "^0.4.4"}
+python-dotenv = "^1.0.0"
+requests = "^2.31.0"
+pandas = "^2.0.3"
+pyarrow = "^12.0.1"
+fastparquet = "^2023.7.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
