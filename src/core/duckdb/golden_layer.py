@@ -5,9 +5,12 @@ import duckdb
 from dotenv import load_dotenv
 from prefect import flow, task
 
-from core.duckdb.silver_layer import (deduplication, load_parquet_from_bucket,
-                                      save_parquet_to_bucket,
-                                      setup_duckdb_connection)
+from core.duckdb.silver_layer import (
+    deduplication,
+    load_parquet_from_bucket,
+    save_parquet_to_bucket,
+    setup_duckdb_connection,
+)
 from core.duckdb.utils import handle_path_date
 
 # Load environment variables from .env file

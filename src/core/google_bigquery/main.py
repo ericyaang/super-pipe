@@ -18,7 +18,7 @@ BUCKET_LOCATION = os.getenv("GCS_BUCKET_LOCATION")
 BQ_DATASET_NAME = os.getenv("BQ_DATASET_NAME")
 
 
-@flow()
+@flow(name="Upload the golden data from today to BigQuery")
 def gcs_to_bigquery(date: str = "today") -> None:
     """The main function for creating an external table in BQ from GCS"""
 
@@ -46,3 +46,5 @@ def gcs_to_bigquery(date: str = "today") -> None:
 
 
 # gcs_to_bigquery(date='2023-07-27') #'YYYY-MM-DD'
+if __name__ == "__main__":
+    gcs_to_bigquery("2023-08-05")

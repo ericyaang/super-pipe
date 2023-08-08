@@ -2,7 +2,7 @@ from time import perf_counter
 
 from prefect import flow, get_run_logger
 
-from core.cornershop.items import items_list
+
 from core.cornershop.main import fetch_corner_shop_data
 from core.duckdb.golden_layer import generate_golden_data
 from core.duckdb.silver_layer import generate_silver_data
@@ -10,14 +10,14 @@ from core.google_bigquery.main import gcs_to_bigquery
 from core.google_cloud_storage.main import load_to_parquet_and_upload_to_gcs
 
 
-@flow(name="CornerShop Main Flow")
-def run_corner_shop_flow(item_list: list, **kwargs):
+@flow(name="CornerShop Main Flow", log_prints=True)
+def run_corner_shop_flow(items: list):
     logger = get_run_logger()
 
     logger.info("---Starting CornerShop Ingestion Flow---")
     start_time = perf_counter()
 
-    for item in item_list:
+    for item in items:
         data = fetch_corner_shop_data(item)
         # Skip to the next item if no data is returned
         if not data:
@@ -43,4 +43,6 @@ def run_corner_shop_flow(item_list: list, **kwargs):
 
 
 if __name__ == "__main__":
+    from core.cornershop.items import items_list
+
     run_corner_shop_flow(items_list)
