@@ -1,0 +1,3 @@
+{
+  "CornerShop Main Flow": "src\\flows\\CornerShop.py:run_corner_shop_flow"
+}

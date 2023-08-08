@@ -22,3 +22,12 @@
 Saiba mais em https://prefecthq.github.io/prefect-gcp/#getting-started
 
 
+### Flow
+
+- A pipeline dura em torno de 17 minutos para ser finalizada
+
+
+### Docker
+- Create Dockerfile
+- Build image: `docker build -t corner-etl .`
+- Push image: `docker image push corner-etl`
