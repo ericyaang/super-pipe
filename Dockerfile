@@ -1,21 +1,20 @@
-FROM prefecthq/prefect:2-python3.10 AS base
+FROM prefecthq/prefect:2-python3.10
 
-ENV PATH="/root/.local/bin:${PATH}"
+COPY requirements.txt .
+COPY setup.py .
+COPY src/core .
+
+RUN pip install --upgrade pip setuptools --no-cache-dir
+RUN pip install --trusted-host pypi.python.org --no-cache-dir .
+
+ARG PREFECT_API_KEY
+ENV PREFECT_API_KEY=$PREFECT_API_KEY
+
+ARG PREFECT_API_URL
+ENV PREFECT_API_URL=$PREFECT_API_URL
+
 ENV PYTHONUNBUFFERED True
 
-# atualizar repositórios
-RUN apt-get update -qq && \
-    apt-get -qq install \
-    curl
+COPY src/flows/ /opt/prefect/flows/
 
-FROM base AS python-depedencies 
-
-# Instalar Poetry
-WORKDIR /opt/prefect
-
-RUN curl -sSL https://install.python-poetry.org | python3 -
-
-COPY pyproject.toml .
-COPY poetry.lock .
-
-RUN poetry install -q -n --no-root --without dev --no-cache --no-interaction
+ENTRYPOINT ["prefect", "agent", "start", "-q", "default"]
