@@ -4,7 +4,24 @@ from prefect.server.schemas.schedules import CronSchedule, IntervalSchedule
 
 from flows.CornerShop import run_corner_shop_flow
 
-docker_container_block = DockerContainer.load("conershop-docker")
+from prefect.infrastructure.container import DockerContainer, ImagePullPolicy
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+from prefect.filesystems import GitHub
+
+github_block = GitHub.load('corner-src')
+
+docker_container_block = DockerContainer(
+    name="docker-container",
+    image="", # insert your image here
+    auto_remove=True,
+    # We want to always use our local image, so we NEVER pull it
+    image_pull_policy=ImagePullPolicy.NEVER,
+)
+
+docker_container_block.save("etl", overwrite=True)
 
 deployment = Deployment.build_from_flow(
     flow=run_corner_shop_flow,
