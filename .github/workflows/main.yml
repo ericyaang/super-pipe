@@ -10,7 +10,7 @@ on:
       zone:
         description: Zone in the selected GCP region
         required: true
-        default: 'southamerica-east1'
+        default: 'southamerica-east1-b'
         type: string
       artifact_repository:
         description: Artifact Registry Repository
