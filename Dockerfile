@@ -1,12 +1,5 @@
 FROM prefecthq/prefect:2-python3.10
 
-COPY requirements.txt .
-COPY setup.py .
-COPY src/core .
-
-RUN pip install --upgrade pip setuptools --no-cache-dir
-RUN pip install --trusted-host pypi.python.org --no-cache-dir .
-
 ARG PREFECT_API_KEY
 ENV PREFECT_API_KEY=$PREFECT_API_KEY
 
@@ -15,6 +8,17 @@ ENV PREFECT_API_URL=$PREFECT_API_URL
 
 ENV PYTHONUNBUFFERED True
 
-COPY src/flows/ /opt/prefect/flows/
+# Set a working directory
+#WORKDIR /opt/prefect
+
+COPY requirements.txt .
+COPY setup.py .
+COPY src/core .
+
+RUN pip install --upgrade pip setuptools --no-cache-dir
+RUN pip --no-cache-dir install -r requirements.txt
+RUN pip --no-cache-dir install .
+
+COPY src/flows /opt/prefect
 
 ENTRYPOINT ["prefect", "agent", "start", "-q", "default"]

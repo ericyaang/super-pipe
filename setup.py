@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-with open("requirements.txt") as install_requires_file:
+with open("requirements.txt", "r", encoding="utf-8") as install_requires_file:
     requirements = install_requires_file.read().strip().split("\n")
 
 setup(
@@ -10,9 +10,9 @@ setup(
     #author="",
     #author_email="",
     #keywords="",
-    packages=["core"],
+    packages=find_packages(where="src"),
     package_dir={"core": "src/core"},
     version="1.0",
-    python_requires=">=3.8",
+    python_requires=">=3.10",
     install_requires=requirements
 )
