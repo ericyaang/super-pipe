@@ -1,5 +1,7 @@
 FROM prefecthq/prefect:2-python3.10
 
+ENV PYTHONPATH "${PYTHONPATH}:/opt/prefect/"
+
 ARG PREFECT_API_KEY
 ENV PREFECT_API_KEY=$PREFECT_API_KEY
 
@@ -9,7 +11,7 @@ ENV PREFECT_API_URL=$PREFECT_API_URL
 ENV PYTHONUNBUFFERED True
 
 # Set a working directory
-#WORKDIR /opt/prefect
+WORKDIR /opt/prefect
 
 COPY requirements.txt .
 COPY setup.py .
