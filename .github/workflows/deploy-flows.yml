@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'src/flows/**' # <--- Your flow from repository
+      - 'src/flows/*' # <--- Your flow from repository
 
 jobs:
   list-flows:
