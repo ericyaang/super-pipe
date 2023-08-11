@@ -1,7 +1,7 @@
 from prefect.deployments import Deployment
 from prefect.infrastructure import Process
 from prefect.server.schemas.schedules import CronSchedule
-from flows.CornerShop import run_corner_shop_flow
+from flows.run_corner_shop_flow import run_corner_shop_flow
 
 deployment = Deployment.build_from_flow(
     flow=run_corner_shop_flow,
