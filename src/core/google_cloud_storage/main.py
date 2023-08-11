@@ -23,7 +23,7 @@ def load_df_to_parquet_and_upload_to_gcs(
     df, serialization_format: str = "parquet"
 ) -> None:
     gcs_bucket_block = GcsBucket.load(
-        "gcp-bucket-corner"
+        "default"
     )  # <--- your bucket block name from /utils/create_blocks.py
 
     DATETIME_UPLOADED = datetime.now().strftime("year=%Y/month=%m/day=%d")
