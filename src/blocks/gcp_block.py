@@ -46,5 +46,5 @@ def save_bucket(credentials_block, bucket_name, block_name):
 if __name__ == "__main__":
     service_account_info = load_service_account_info(GCP_CREDENTIALS_PATH)
     
-    credentials_block = save_credentials(service_account_info, "dafault")
+    credentials_block = save_credentials(service_account_info, "default")
     save_bucket(credentials_block, BUCKET_NAME, "default")
