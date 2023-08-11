@@ -15,12 +15,12 @@ WORKDIR /opt/prefect
 
 COPY requirements.txt .
 COPY setup.py .
-COPY src/core .
+COPY src/core core
 
 RUN pip install --upgrade pip setuptools --no-cache-dir
 RUN pip --no-cache-dir install -r requirements.txt
 RUN pip --no-cache-dir install .
 
-COPY src/flows /opt/prefect
+COPY src/flows /opt/prefect/flows
 
 ENTRYPOINT ["prefect", "agent", "start", "-q", "default"]
