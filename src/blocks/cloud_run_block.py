@@ -7,7 +7,7 @@ load_dotenv()
 
 PROJECT_NAME = os.getenv("GCP_PROJECT_NAME")
 GCS_LOCATION = os.getenv("GCS_BUCKET_LOCATION")
-credentials = GcpCredentials.load("gcp-credentials")
+credentials = GcpCredentials.load("default")
 
 block = CloudRunJob(
     credentials=credentials,
