@@ -49,16 +49,7 @@ on:
         type: string
 jobs:
   deploy-container:
-    runs-on: ubuntu-latest
-    env:  # <-- Setting environment variables for the job
-      GCS_S3_ENDPOINT: ${{ secrets.GCS_S3_ENDPOINT }}
-      GCS_ACCESS_KEY: ${{ secrets.GCS_ACCESS_KEY }}
-      GCS_SECRET: ${{ secrets.GCS_SECRET }}
-      GCS_BUCKET_NAME: ${{ secrets.GCS_BUCKET_NAME }}       
-      GCS_BUCKET_PATH_BRONZE: ${{ secrets.GCS_BUCKET_PATH_BRONZE }}    
-      GCS_BUCKET_PATH_SILVER: ${{ secrets.GCS_BUCKET_PATH_SILVER }}    
-      GCS_BUCKET_PATH_GOLD: ${{ secrets.GCS_BUCKET_PATH_GOLD }}  
-      BQ_DATASET_NAME: ${{ secrets.BQ_DATASET_NAME }}                               
+    runs-on: ubuntu-latest                          
     steps:
       - uses: actions/checkout@v3
       - id: deploy-container
@@ -72,6 +63,15 @@ jobs:
 #          gcp_sa_email: ${{ secrets.GCP_SA_EMAIL }}
           zone: ${{ github.event.inputs.zone }}  # optional
           machine_type: ${{ github.event.inputs.machine_type }}  # optional
+        env:  # <-- Setting environment variables for the job
+          GCS_S3_ENDPOINT: ${{ secrets.GCS_S3_ENDPOINT }}
+          GCS_ACCESS_KEY: ${{ secrets.GCS_ACCESS_KEY }}
+          GCS_SECRET: ${{ secrets.GCS_SECRET }}
+          GCS_BUCKET_NAME: ${{ secrets.GCS_BUCKET_NAME }}       
+          GCS_BUCKET_PATH_BRONZE: ${{ secrets.GCS_BUCKET_PATH_BRONZE }}    
+          GCS_BUCKET_PATH_SILVER: ${{ secrets.GCS_BUCKET_PATH_SILVER }}    
+          GCS_BUCKET_PATH_GOLD: ${{ secrets.GCS_BUCKET_PATH_GOLD }}  
+          BQ_DATASET_NAME: ${{ secrets.BQ_DATASET_NAME }}             
 
       - id: create-blocks
         uses: ./.github/actions/blocks-quickstart
@@ -81,6 +81,15 @@ jobs:
           image_uri: ${{ env.IMAGE_URI }}
           block_name: ${{ github.event.inputs.block_name }} # optional
           region: ${{ github.event.inputs.region }}  # optional
+        env:  # <-- Setting environment variables for the job
+          GCS_S3_ENDPOINT: ${{ secrets.GCS_S3_ENDPOINT }}
+          GCS_ACCESS_KEY: ${{ secrets.GCS_ACCESS_KEY }}
+          GCS_SECRET: ${{ secrets.GCS_SECRET }}
+          GCS_BUCKET_NAME: ${{ secrets.GCS_BUCKET_NAME }}       
+          GCS_BUCKET_PATH_BRONZE: ${{ secrets.GCS_BUCKET_PATH_BRONZE }}    
+          GCS_BUCKET_PATH_SILVER: ${{ secrets.GCS_BUCKET_PATH_SILVER }}    
+          GCS_BUCKET_PATH_GOLD: ${{ secrets.GCS_BUCKET_PATH_GOLD }}  
+          BQ_DATASET_NAME: ${{ secrets.BQ_DATASET_NAME }}                  
 
   list-flows:
     runs-on: ubuntu-latest
@@ -97,16 +106,7 @@ jobs:
     runs-on: ubuntu-latest   
     strategy:
       matrix:
-        flows: ${{ fromJson(needs.list-flows.outputs.matrix) }}
-    env:  # <-- Setting environment variables for the job
-      GCS_S3_ENDPOINT: ${{ secrets.GCS_S3_ENDPOINT }}
-      GCS_ACCESS_KEY: ${{ secrets.GCS_ACCESS_KEY }}
-      GCS_SECRET: ${{ secrets.GCS_SECRET }}
-      GCS_BUCKET_NAME: ${{ secrets.GCS_BUCKET_NAME }}       
-      GCS_BUCKET_PATH_BRONZE: ${{ secrets.GCS_BUCKET_PATH_BRONZE }}    
-      GCS_BUCKET_PATH_SILVER: ${{ secrets.GCS_BUCKET_PATH_SILVER }}    
-      GCS_BUCKET_PATH_GOLD: ${{ secrets.GCS_BUCKET_PATH_GOLD }}  
-      BQ_DATASET_NAME: ${{ secrets.BQ_DATASET_NAME }}                
+        flows: ${{ fromJson(needs.list-flows.outputs.matrix) }}          
     steps:
       - uses: actions/checkout@v3
       - id: flow  # example output: "flows/hello.py:hello"
@@ -123,3 +123,12 @@ jobs:
           queue: ${{ github.event.inputs.queue }} # optional
           storage_block: github/${{ github.event.inputs.block_name }} # optional
           infrastructure_block: cloud-run-job/${{ github.event.inputs.block_name }} # optional
+        env:  # <-- Setting environment variables for the job
+          GCS_S3_ENDPOINT: ${{ secrets.GCS_S3_ENDPOINT }}
+          GCS_ACCESS_KEY: ${{ secrets.GCS_ACCESS_KEY }}
+          GCS_SECRET: ${{ secrets.GCS_SECRET }}
+          GCS_BUCKET_NAME: ${{ secrets.GCS_BUCKET_NAME }}       
+          GCS_BUCKET_PATH_BRONZE: ${{ secrets.GCS_BUCKET_PATH_BRONZE }}    
+          GCS_BUCKET_PATH_SILVER: ${{ secrets.GCS_BUCKET_PATH_SILVER }}    
+          GCS_BUCKET_PATH_GOLD: ${{ secrets.GCS_BUCKET_PATH_GOLD }}  
+          BQ_DATASET_NAME: ${{ secrets.BQ_DATASET_NAME }}               

@@ -23,16 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        flows: ${{ fromJson(needs.list-flows.outputs.matrix) }}
-    env:  # <-- Setting environment variables for the job
-      GCS_S3_ENDPOINT: ${{ secrets.GCS_S3_ENDPOINT }}
-      GCS_ACCESS_KEY: ${{ secrets.GCS_ACCESS_KEY }}
-      GCS_SECRET: ${{ secrets.GCS_SECRET }}
-      GCS_BUCKET_NAME: ${{ secrets.GCS_BUCKET_NAME }}       
-      GCS_BUCKET_PATH_BRONZE: ${{ secrets.GCS_BUCKET_PATH_BRONZE }}    
-      GCS_BUCKET_PATH_SILVER: ${{ secrets.GCS_BUCKET_PATH_SILVER }}    
-      GCS_BUCKET_PATH_GOLD: ${{ secrets.GCS_BUCKET_PATH_GOLD }}  
-      BQ_DATASET_NAME: ${{ secrets.BQ_DATASET_NAME }}        
+        flows: ${{ fromJson(needs.list-flows.outputs.matrix) }}   
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -52,3 +43,12 @@ jobs:
           infrastructure_block: "cloud-run-job/default" # optional
           python_version: "3.10" # optional
           install_command: "pip install ." # optional
+        env:  # <-- Setting environment variables for the job
+          GCS_S3_ENDPOINT: ${{ secrets.GCS_S3_ENDPOINT }}
+          GCS_ACCESS_KEY: ${{ secrets.GCS_ACCESS_KEY }}
+          GCS_SECRET: ${{ secrets.GCS_SECRET }}
+          GCS_BUCKET_NAME: ${{ secrets.GCS_BUCKET_NAME }}       
+          GCS_BUCKET_PATH_BRONZE: ${{ secrets.GCS_BUCKET_PATH_BRONZE }}    
+          GCS_BUCKET_PATH_SILVER: ${{ secrets.GCS_BUCKET_PATH_SILVER }}    
+          GCS_BUCKET_PATH_GOLD: ${{ secrets.GCS_BUCKET_PATH_GOLD }}  
+          BQ_DATASET_NAME: ${{ secrets.BQ_DATASET_NAME }}     
