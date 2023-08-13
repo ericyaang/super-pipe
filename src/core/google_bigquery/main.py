@@ -23,7 +23,7 @@ def gcs_to_bigquery(date: str = "today") -> None:
     """The main function for creating an external table in BQ from GCS"""
 
     select_date = handle_path_date(date)
-    gcp_credentials_block = GcpCredentials.load("dafault")
+    gcp_credentials_block = GcpCredentials.load("default")
     external_table_options = ExternalConfig("PARQUET")
     external_table_options.autodetect = True
     external_table_options.source_uris = [
