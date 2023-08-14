@@ -88,8 +88,6 @@ runs:
         docker build -q \
         --build-arg PREFECT_API_KEY=${{ inputs.prefect_api_key }} \
         --build-arg PREFECT_API_URL=${{ inputs.prefect_api_url }} \
-        
-      # Add new build arguments here
         --build-arg GCS_S3_ENDPOINT=${{ inputs.GCS_S3_ENDPOINT }} \
         --build-arg GCS_ACCESS_KEY=${{ inputs.GCS_ACCESS_KEY }} \
         --build-arg GCS_SECRET=${{ inputs.GCS_SECRET }} \
@@ -99,7 +97,6 @@ runs:
         --build-arg GCS_BUCKET_PATH_GOLD=${{ inputs.GCS_BUCKET_PATH_GOLD }} \
         --build-arg BQ_DATASET_NAME=${{ inputs.BQ_DATASET_NAME }} \
         -t "${{ env.RAW_IMAGE }}" -f ${{ inputs.dockerfile_path }} .
-
         docker tag "${{ env.RAW_IMAGE }}" "${{ env.IMAGE_URI }}"
         docker push "${{ env.RAW_IMAGE }}"
         docker push "${{ env.IMAGE_URI }}"
