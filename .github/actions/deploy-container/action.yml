@@ -38,20 +38,28 @@ inputs:
     required: false
     default: 'prefect-cloud-vm'
   GCS_S3_ENDPOINT:
+    description: 'GCS S3 Endpoint'
     required: true
   GCS_ACCESS_KEY:
+    description: 'GCS Access Key'
     required: true
   GCS_SECRET:
+    description: 'GCS Secret'
     required: true
   GCS_BUCKET_NAME:
+    description: 'GCS Bucket Name'
     required: true
   GCS_BUCKET_PATH_BRONZE:
+    description: 'GCS Bucket Path Bronze'
     required: true
   GCS_BUCKET_PATH_SILVER:
+    description: 'GCS Bucket Path Silver'
     required: true
   GCS_BUCKET_PATH_GOLD:
+    description: 'GCS Bucket Path Gold'
     required: true
   BQ_DATASET_NAME:
+    description: 'BQ Dataset Name'
     required: true
 runs:
   using: "composite"
