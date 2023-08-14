@@ -37,6 +37,22 @@ inputs:
     description: 'GCP Compute Engine instance name'
     required: false
     default: 'prefect-cloud-vm'
+  GCS_S3_ENDPOINT:
+    required: true
+  GCS_ACCESS_KEY:
+    required: true
+  GCS_SECRET:
+    required: true
+  GCS_BUCKET_NAME:
+    required: true
+  GCS_BUCKET_PATH_BRONZE:
+    required: true
+  GCS_BUCKET_PATH_SILVER:
+    required: true
+  GCS_BUCKET_PATH_GOLD:
+    required: true
+  BQ_DATASET_NAME:
+    required: true
 runs:
   using: "composite"
   steps:
@@ -73,5 +89,5 @@ runs:
           --service-account $EMAIL \
           --scopes "cloud-platform" \
           --container-image "${{ env.IMAGE_URI }}" \
-          --container-env GCS_S3_ENDPOINT=${{ secrets.GCS_S3_ENDPOINT }},GCS_ACCESS_KEY=${{ secrets.GCS_ACCESS_KEY }},GCS_SECRET=${{ secrets.GCS_SECRET }},GCS_BUCKET_NAME=${{ secrets.GCS_BUCKET_NAME }},GCS_BUCKET_PATH_BRONZE=${{ secrets.GCS_BUCKET_PATH_BRONZE }},GCS_BUCKET_PATH_SILVER=${{ secrets.GCS_BUCKET_PATH_SILVER }},GCS_BUCKET_PATH_GOLD=${{ secrets.GCS_BUCKET_PATH_GOLD }},BQ_DATASET_NAME=${{ secrets.BQ_DATASET_NAME }}
+          --container-env GCS_S3_ENDPOINT=${{ inputs.GCS_S3_ENDPOINT }},GCS_ACCESS_KEY=${{ inputs.GCS_ACCESS_KEY }},GCS_SECRET=${{ inputs.GCS_SECRET }},GCS_BUCKET_NAME=${{ inputs.GCS_BUCKET_NAME }},GCS_BUCKET_PATH_BRONZE=${{ inputs.GCS_BUCKET_PATH_BRONZE }},GCS_BUCKET_PATH_SILVER=${{ inputs.GCS_BUCKET_PATH_SILVER }},GCS_BUCKET_PATH_GOLD=${{ inputs.GCS_BUCKET_PATH_GOLD }},BQ_DATASET_NAME=${{ inputs.BQ_DATASET_NAME }}
 
