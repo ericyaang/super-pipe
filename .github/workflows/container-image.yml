@@ -31,12 +31,3 @@ jobs:
           image_name: ${{ github.event.inputs.image_name }}  # optional
           region: ${{ github.event.inputs.region }}  # optional
           gcp_credentials_json: ${{ secrets.GCP_CREDENTIALS }}
-        env:  # <-- Setting environment variables for the job
-          GCS_S3_ENDPOINT: ${{ secrets.GCS_S3_ENDPOINT }}
-          GCS_ACCESS_KEY: ${{ secrets.GCS_ACCESS_KEY }}
-          GCS_SECRET: ${{ secrets.GCS_SECRET }}
-          GCS_BUCKET_NAME: ${{ secrets.GCS_BUCKET_NAME }}       
-          GCS_BUCKET_PATH_BRONZE: ${{ secrets.GCS_BUCKET_PATH_BRONZE }}    
-          GCS_BUCKET_PATH_SILVER: ${{ secrets.GCS_BUCKET_PATH_SILVER }}    
-          GCS_BUCKET_PATH_GOLD: ${{ secrets.GCS_BUCKET_PATH_GOLD }}  
-          BQ_DATASET_NAME: ${{ secrets.BQ_DATASET_NAME }}              
