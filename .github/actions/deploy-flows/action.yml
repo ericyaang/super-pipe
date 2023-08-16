@@ -37,30 +37,6 @@ inputs:
     description: 'Can be set to e.g. pip install -r requirements.txt'
     required: false
     default: "pip install ."  # install via setup.py by default
-  GCS_S3_ENDPOINT:
-    description: 'GCS S3 Endpoint'
-    required: true
-  GCS_ACCESS_KEY:
-    description: 'GCS Access Key'
-    required: true
-  GCS_SECRET:
-    description: 'GCS Secret'
-    required: true
-  GCS_BUCKET_NAME:
-    description: 'GCS Bucket Name'
-    required: true
-  GCS_BUCKET_PATH_BRONZE:
-    description: 'GCS Bucket Path Bronze'
-    required: true
-  GCS_BUCKET_PATH_SILVER:
-    description: 'GCS Bucket Path Silver'
-    required: true
-  GCS_BUCKET_PATH_GOLD:
-    description: 'GCS Bucket Path Gold'
-    required: true
-  BQ_DATASET_NAME:
-    description: 'BQ Dataset Name'
-    required: true
 runs:
   using: "composite"
   steps:
@@ -86,12 +62,3 @@ runs:
         prefect deployment build ${{ inputs.flow_entrypoint }} -n ${{ inputs.deployment }} -q ${{ inputs.queue }} \
         -sb "${{ inputs.storage_block }}" -ib "${{ inputs.infrastructure_block }}" --skip-upload -a -v $GITHUB_SHA
       shell: bash
-      env:
-        GCS_S3_ENDPOINT: ${{ inputs.GCS_S3_ENDPOINT }}
-        GCS_ACCESS_KEY: ${{ inputs.GCS_ACCESS_KEY }}
-        GCS_SECRET: ${{ inputs.GCS_SECRET }}
-        GCS_BUCKET_NAME: ${{ inputs.GCS_BUCKET_NAME }}
-        GCS_BUCKET_PATH_BRONZE: ${{ inputs.GCS_BUCKET_PATH_BRONZE }}
-        GCS_BUCKET_PATH_SILVER: ${{ inputs.GCS_BUCKET_PATH_SILVER }}
-        GCS_BUCKET_PATH_GOLD: ${{ inputs.GCS_BUCKET_PATH_GOLD }}
-        BQ_DATASET_NAME: ${{ inputs.BQ_DATASET_NAME }}

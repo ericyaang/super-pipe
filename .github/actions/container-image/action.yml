@@ -29,30 +29,6 @@ inputs:
     description: 'Path and filename of the Dockerfile'
     required: false
     default: Dockerfile
-  GCS_S3_ENDPOINT:
-    description: 'GCS S3 Endpoint'
-    required: true
-  GCS_ACCESS_KEY:
-    description: 'GCS Access Key'
-    required: true
-  GCS_SECRET:
-    description: 'GCS Secret'
-    required: true
-  GCS_BUCKET_NAME:
-    description: 'GCS Bucket Name'
-    required: true
-  GCS_BUCKET_PATH_BRONZE:
-    description: 'GCS Bucket Path Bronze'
-    required: true
-  GCS_BUCKET_PATH_SILVER:
-    description: 'GCS Bucket Path Silver'
-    required: true
-  GCS_BUCKET_PATH_GOLD:
-    description: 'GCS Bucket Path Gold'
-    required: true
-  BQ_DATASET_NAME:
-    description: 'BQ Dataset Name'
-    required: true
 runs:
   using: "composite"
   steps:
@@ -88,14 +64,6 @@ runs:
         docker build -q \
         --build-arg PREFECT_API_KEY=${{ inputs.prefect_api_key }} \
         --build-arg PREFECT_API_URL=${{ inputs.prefect_api_url }} \
-        --build-arg GCS_S3_ENDPOINT=${{ inputs.GCS_S3_ENDPOINT }} \
-        --build-arg GCS_ACCESS_KEY=${{ inputs.GCS_ACCESS_KEY }} \
-        --build-arg GCS_SECRET=${{ inputs.GCS_SECRET }} \
-        --build-arg GCS_BUCKET_NAME=${{ inputs.GCS_BUCKET_NAME }} \
-        --build-arg GCS_BUCKET_PATH_BRONZE=${{ inputs.GCS_BUCKET_PATH_BRONZE }} \
-        --build-arg GCS_BUCKET_PATH_SILVER=${{ inputs.GCS_BUCKET_PATH_SILVER }} \
-        --build-arg GCS_BUCKET_PATH_GOLD=${{ inputs.GCS_BUCKET_PATH_GOLD }} \
-        --build-arg BQ_DATASET_NAME=${{ inputs.BQ_DATASET_NAME }} \
         -t "${{ env.RAW_IMAGE }}" -f ${{ inputs.dockerfile_path }} .
         docker tag "${{ env.RAW_IMAGE }}" "${{ env.IMAGE_URI }}"
         docker push "${{ env.RAW_IMAGE }}"
