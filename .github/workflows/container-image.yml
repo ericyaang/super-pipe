@@ -19,7 +19,18 @@ on:
         type: string
 jobs:
   container-image:
-    runs-on: ubuntu-latest      
+    runs-on: ubuntu-latest    
+    env:
+      GCP_PROJECT_NAME: ${{ secrets.GCP_PROJECT_NAME }}
+      GCP_CREDENTIALS_PATH: ${{ secrets.GCP_CREDENTIALS_PATH }}
+      GCS_BUCKET_NAME: ${{ secrets.GCS_BUCKET_NAME }}
+      GCS_BUCKET_PATH_BRONZE: ${{ secrets.GCS_BUCKET_PATH_BRONZE }}
+      GCS_BUCKET_PATH_SILVER: ${{ secrets.GCS_BUCKET_PATH_SILVER }} 
+      GCS_BUCKET_PATH_GOLD: ${{ secrets.GCS_BUCKET_PATH_GOLD }} 
+      GCS_BUCKET_LOCATION: ${{ secrets.GCS_BUCKET_LOCATION }}    
+      GCS_ACCESS_KEY: ${{ secrets.GCS_ACCESS_KEY }}   
+      GCS_SECRET: ${{ secrets.GCS_SECRET }}  
+      GCS_S3_ENDPOINT: ${{ secrets.GCS_S3_ENDPOINT }}        
     steps:
       - uses: actions/checkout@v3
       - id: deploy-container
