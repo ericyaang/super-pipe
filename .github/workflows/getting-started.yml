@@ -49,18 +49,7 @@ on:
         type: string
 jobs:
   deploy-container:
-    runs-on: ubuntu-latest    
-    env:
-      GCP_PROJECT_NAME: ${{ vars.GCP_PROJECT_NAME }}
-      GCP_CREDENTIALS_PATH: ${{ vars.GCP_CREDENTIALS_PATH }}
-      GCS_BUCKET_NAME: ${{ vars.GCS_BUCKET_NAME }}
-      GCS_BUCKET_PATH_BRONZE: ${{ vars.GCS_BUCKET_PATH_BRONZE }}
-      GCS_BUCKET_PATH_SILVER: ${{ vars.GCS_BUCKET_PATH_SILVER }} 
-      GCS_BUCKET_PATH_GOLD: ${{ vars.GCS_BUCKET_PATH_GOLD }} 
-      GCS_BUCKET_LOCATION: ${{ vars.GCS_BUCKET_LOCATION }}    
-      GCS_ACCESS_KEY: ${{ vars.GCS_ACCESS_KEY }}   
-      GCS_SECRET: ${{ vars.GCS_SECRET }}  
-      GCS_S3_ENDPOINT: ${{ vars.GCS_S3_ENDPOINT }}                                               
+    runs-on: ubuntu-latest                                             
     steps:
       - uses: actions/checkout@v3
       - id: deploy-container
@@ -86,18 +75,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: deploy-container
     outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-    env:
-      GCP_PROJECT_NAME: ${{ vars.GCP_PROJECT_NAME }}
-      GCP_CREDENTIALS_PATH: ${{ vars.GCP_CREDENTIALS_PATH }}
-      GCS_BUCKET_NAME: ${{ vars.GCS_BUCKET_NAME }}
-      GCS_BUCKET_PATH_BRONZE: ${{ vars.GCS_BUCKET_PATH_BRONZE }}
-      GCS_BUCKET_PATH_SILVER: ${{ vars.GCS_BUCKET_PATH_SILVER }} 
-      GCS_BUCKET_PATH_GOLD: ${{ vars.GCS_BUCKET_PATH_GOLD }} 
-      GCS_BUCKET_LOCATION: ${{ vars.GCS_BUCKET_LOCATION }}    
-      GCS_ACCESS_KEY: ${{ vars.GCS_ACCESS_KEY }}   
-      GCS_SECRET: ${{ vars.GCS_SECRET }}  
-      GCS_S3_ENDPOINT: ${{ vars.GCS_S3_ENDPOINT }}            
+      matrix: ${{ steps.set-matrix.outputs.matrix }}     
     steps:
       - uses: actions/checkout@v3
       - id: set-matrix
@@ -108,17 +86,6 @@ jobs:
     strategy:
       matrix:
         flows: ${{ fromJson(needs.list-flows.outputs.matrix) }}
-    env:
-        GCP_PROJECT_NAME: ${{ secrets.GCP_PROJECT_NAME }}
-        GCP_CREDENTIALS_PATH: ${{ secrets.GCP_CREDENTIALS_PATH }}
-        GCS_BUCKET_NAME: ${{ secrets.GCS_BUCKET_NAME }}
-        GCS_BUCKET_PATH_BRONZE: ${{ secrets.GCS_BUCKET_PATH_BRONZE }}
-        GCS_BUCKET_PATH_SILVER: ${{ secrets.GCS_BUCKET_PATH_SILVER }} 
-        GCS_BUCKET_PATH_GOLD: ${{ secrets.GCS_BUCKET_PATH_GOLD }} 
-        GCS_BUCKET_LOCATION: ${{ secrets.GCS_BUCKET_LOCATION }}    
-        GCS_ACCESS_KEY: ${{ secrets.GCS_ACCESS_KEY }}   
-        GCS_SECRET: ${{ secrets.GCS_SECRET }}  
-        GCS_S3_ENDPOINT: ${{ secrets.GCS_S3_ENDPOINT }}                    
     steps:
       - uses: actions/checkout@v3
       - id: flow  # example output: "flows/hello.py:hello"

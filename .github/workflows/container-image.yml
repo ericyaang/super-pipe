@@ -20,17 +20,6 @@ on:
 jobs:
   container-image:
     runs-on: ubuntu-latest    
-    env:
-      GCP_PROJECT_NAME: ${{ vars.GCP_PROJECT_NAME }}
-      GCP_CREDENTIALS_PATH: ${{ vars.GCP_CREDENTIALS_PATH }}
-      GCS_BUCKET_NAME: ${{ vars.GCS_BUCKET_NAME }}
-      GCS_BUCKET_PATH_BRONZE: ${{ vars.GCS_BUCKET_PATH_BRONZE }}
-      GCS_BUCKET_PATH_SILVER: ${{ vars.GCS_BUCKET_PATH_SILVER }} 
-      GCS_BUCKET_PATH_GOLD: ${{ vars.GCS_BUCKET_PATH_GOLD }} 
-      GCS_BUCKET_LOCATION: ${{ vars.GCS_BUCKET_LOCATION }}    
-      GCS_ACCESS_KEY: ${{ vars.GCS_ACCESS_KEY }}   
-      GCS_SECRET: ${{ vars.GCS_SECRET }}  
-      GCS_S3_ENDPOINT: ${{ vars.GCS_S3_ENDPOINT }}        
     steps:
       - uses: actions/checkout@v3
       - id: deploy-container
