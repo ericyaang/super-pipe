@@ -10,6 +10,14 @@ inputs:
   prefect_api_url:
     description: 'Prefect Cloud API URL'
     required: true
+  bucket_name:
+    description: 'Name of the Bucket'
+    required: false
+    default: "cornershp-raw"
+  bucket_block_name:
+    description: 'Name of the bucket block name'
+    required: false
+    default: "default"
   block_name:
     description: 'Name of the GitHub, CloudRunJob and GcpCredentials blocks'
     required: false
@@ -52,5 +60,5 @@ runs:
       shell: bash
 
     - id: create-blocks
-      run: python ${{ github.action_path }}/blocks.py -b $GITHUB_REF_NAME -r $GITHUB_SERVER_URL/$GITHUB_REPOSITORY -n ${{ inputs.block_name }} -i ${{ inputs.image_uri }} --region ${{ inputs.region }}
+      run: python ${{ github.action_path }}/blocks.py -b $GITHUB_REF_NAME -r $GITHUB_SERVER_URL/$GITHUB_REPOSITORY -n ${{ inputs.block_name }} -bn ${{ inputs.bucket_name }} -bbn ${{ inputs.bucket_block_name }} -i ${{ inputs.image_uri }} --region ${{ inputs.region }}
       shell: bash

@@ -17,6 +17,30 @@ on:
         required: true
         default: 'us-east1'
         type: string
+      gcs_s3_endpoint:
+        description: 'GCS S3 Endpoint'
+        required: true
+      gcs_access_key:
+        description: 'GCS Access Key'
+        required: true
+      gcs_secret:
+        description: 'GCS Secret'
+        required: true
+      gcs_bucket_name:
+        description: 'GCS Bucket Name'
+        required: true
+      gcs_bucket_path_bronze:
+        description: 'GCS Bucket Path Bronze'
+        required: true
+      gcs_bucket_path_silver:
+        description: 'GCS Bucket Path Silver'
+        required: true
+      gcs_bucket_path_gold:
+        description: 'GCS Bucket Path Gold'
+        required: true
+      bq_dataset_name:
+        description: 'BQ Dataset Name'
+        required: true        
 jobs:
   container-image:
     runs-on: ubuntu-latest    
@@ -28,6 +52,14 @@ jobs:
           prefect_api_key: ${{ secrets.PREFECT_API_KEY }}
           prefect_api_url: ${{ secrets.PREFECT_API_URL }}
           artifact_repository: ${{ github.event.inputs.artifact_repository }}  # optional
+          gcs_s3_endpoint: ${{ secrets.GCS_S3_ENDPOINT }}
+          gcs_access_key: ${{ secrets.GCS_ACCESS_KEY }}
+          gcs_secret: ${{ secrets.GCS_SECRET }}
+          gcs_bucket_name: ${{ secrets.GCS_BUCKET_NAME }}
+          gcs_bucket_path_bronze: ${{ secrets.GCS_BUCKET_PATH_BRONZE }}
+          gcs_bucket_path_silver: ${{ secrets.GCS_BUCKET_PATH_SILVER }}
+          gcs_bucket_path_gold: ${{ secrets.GCS_BUCKET_PATH_GOLD }}
+          bq_dataset_name: ${{ secrets.BQ_DATASET_NAME }}          
           image_name: ${{ github.event.inputs.image_name }}  # optional
           region: ${{ github.event.inputs.region }}  # optional
           gcp_credentials_json: ${{ secrets.GCP_CREDENTIALS }}

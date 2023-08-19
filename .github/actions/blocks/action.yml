@@ -10,6 +10,14 @@ inputs:
   prefect_api_url:
     description: 'Prefect Cloud API URL'
     required: true
+  bucket_name:
+    description: 'Name of the Bucket'
+    required: false
+    default: "cornershp-raw"
+  bucket_block_name:
+    description: 'Name of the bucket block name'
+    required: false
+    default: "default"
   github_block_name:
     description: 'Name of the GitHub block'
     required: false
@@ -65,7 +73,13 @@ runs:
         from prefect.filesystems import GitHub
         from prefect_gcp.cloud_run import CloudRunJob
         from prefect_gcp.credentials import GcpCredentials
-        
+
+        bucket_block = GcsBucket(
+            gcp_credentials=GcpCredentials.load(args.block_name),
+            bucket="${{ inputs.bucket_name }}",
+        )
+        bucket_block.save("${{ inputs.bucket_block_name }}", overwrite=True)
+
         gh = GitHub(repository="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY", reference="$GITHUB_REF_NAME")
         gh.save("${{ inputs.github_block_name }}", overwrite=True)
         
