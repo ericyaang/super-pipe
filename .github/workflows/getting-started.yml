@@ -57,6 +57,14 @@ jobs:
         with:
           prefect_api_key: ${{ secrets.PREFECT_API_KEY }}
           prefect_api_url: ${{ secrets.PREFECT_API_URL }}
+          gcs_s3_endpoint: ${{ secrets.GCS_S3_ENDPOINT }}
+          gcs_access_key: ${{ secrets.GCS_ACCESS_KEY }}
+          gcs_secret: ${{ secrets.GCS_SECRET }}
+          gcs_bucket_name: ${{ secrets.GCS_BUCKET_NAME }}
+          gcs_bucket_path_bronze: ${{ secrets.GCS_BUCKET_PATH_BRONZE }}
+          gcs_bucket_path_silver: ${{ secrets.GCS_BUCKET_PATH_SILVER }}
+          gcs_bucket_path_gold: ${{ secrets.GCS_BUCKET_PATH_GOLD }}
+          bq_dataset_name: ${{ secrets.BQ_DATASET_NAME }}           
           artifact_repository: ${{ github.event.inputs.artifact_repository }}  # optional
           region: ${{ github.event.inputs.region }}  # optional
           gcp_credentials_json: ${{ secrets.GCP_CREDENTIALS }}
