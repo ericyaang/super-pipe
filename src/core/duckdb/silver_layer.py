@@ -5,9 +5,6 @@ import duckdb
 from dotenv import load_dotenv
 from prefect import flow, task
 from prefect_gcp.cloud_storage import GcsBucket
-gcs_bucket_block = GcsBucket.load(
-    "default"
-)
 
 # Load environment variables from .env file
 load_dotenv()
@@ -15,8 +12,7 @@ load_dotenv()
 # load env variables
 ACCESS = os.getenv("GCS_ACCESS_KEY")
 SECRET = os.getenv("GCS_SECRET")
-BUCKET_NAME = gcs_bucket_block.bucket
-#BUCKET_NAME = os.getenv("GCS_BUCKET_NAME")
+BUCKET_NAME = os.getenv("GCS_BUCKET_NAME")
 BUCKET_PATH_BRONZE = os.getenv("GCS_BUCKET_PATH_BRONZE")
 BUCKET_PATH_SILVER = os.getenv("GCS_BUCKET_PATH_SILVER")
 BUCKET_PATH_GOLD = os.getenv("GCS_BUCKET_PATH_GOLD")
