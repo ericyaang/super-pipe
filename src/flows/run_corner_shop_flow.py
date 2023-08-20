@@ -29,13 +29,13 @@ def run_corner_shop_flow(items: list):
         load_to_parquet_and_upload_to_gcs(data)
 
     logger.info("---Starting CornerShop Silver Layer Flow---")
-    generate_silver_data()
+    time_stamp = generate_silver_data()
 
     logger.info("---Starting CornerShop Golden Layer Flow---")
-    generate_golden_data()
+    generate_golden_data(time_stamp)
 
     logger.info("---Loading from GCS to BigQuery---")
-    gcs_to_bigquery()
+    gcs_to_bigquery(time_stamp)
 
     end_time = perf_counter()
     total_time = end_time - start_time
@@ -45,4 +45,4 @@ def run_corner_shop_flow(items: list):
 if __name__ == "__main__":
     from core.cornershop.items import items_list
 
-    run_corner_shop_flow(items_list)
+    run_corner_shop_flow(['haribo'])

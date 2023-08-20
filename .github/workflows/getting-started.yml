@@ -49,7 +49,9 @@ on:
         type: string
 jobs:
   deploy-container:
-    runs-on: ubuntu-latest                                             
+    runs-on: ubuntu-latest  
+    environment: 
+      name: dev                                               
     steps:
       - uses: actions/checkout@v3
       - id: deploy-container
@@ -91,6 +93,8 @@ jobs:
   deploy:
     needs: list-flows
     runs-on: ubuntu-latest   
+    environment: 
+      name: dev       
     strategy:
       matrix:
         flows: ${{ fromJson(needs.list-flows.outputs.matrix) }}
@@ -105,6 +109,14 @@ jobs:
         with:
           prefect_api_key: ${{ secrets.PREFECT_API_KEY }}
           prefect_api_url: ${{ secrets.PREFECT_API_URL }}
+          gcs_s3_endpoint: ${{ secrets.GCS_S3_ENDPOINT }}
+          gcs_access_key: ${{ secrets.GCS_ACCESS_KEY }}
+          gcs_secret: ${{ secrets.GCS_SECRET }}
+          gcs_bucket_name: ${{ secrets.GCS_BUCKET_NAME }}
+          gcs_bucket_path_bronze: ${{ secrets.GCS_BUCKET_PATH_BRONZE }}
+          gcs_bucket_path_silver: ${{ secrets.GCS_BUCKET_PATH_SILVER }}
+          gcs_bucket_path_gold: ${{ secrets.GCS_BUCKET_PATH_GOLD }}
+          bq_dataset_name: ${{ secrets.BQ_DATASET_NAME }}                     
           flow_entrypoint: ${{ steps.flow.outputs.entrypoint }}
           deployment: ${{ github.event.inputs.deployment }} # optional
           queue: ${{ github.event.inputs.queue }} # optional

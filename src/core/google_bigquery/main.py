@@ -6,15 +6,12 @@ from google.cloud.bigquery import ExternalConfig
 from prefect import flow
 from prefect_gcp import GcpCredentials
 from prefect_gcp.bigquery import bigquery_create_table
-from prefect_gcp.cloud_storage import GcsBucket
-from core.duckdb.utils import handle_path_date
+
+from core.duckdb.utils import handle_path_date, transform_date_string
 
 load_dotenv()
 
-gcs_bucket_block = GcsBucket.load(
-"default" # <--- check the block name
-)
-BUCKET_NAME = gcs_bucket_block.bucket
+BUCKET_NAME = os.getenv("GCS_BUCKET_NAME")
 BUCKET_PATH_SILVER = os.getenv("GCS_BUCKET_PATH_SILVER")
 BUCKET_PATH_GOLD = os.getenv("GCS_BUCKET_PATH_GOLD")
 BUCKET_LOCATION = os.getenv("GCS_BUCKET_LOCATION")
@@ -36,7 +33,7 @@ def gcs_to_bigquery(date: str = "today") -> None:
     if date == "today" or date == "all":
         timestamp = datetime.now().strftime("%Y_%m_%d")
     else:
-        timestamp = date.replace("-", "_")
+        timestamp = transform_date_string(date)
 
     result = bigquery_create_table(
         dataset=BQ_DATASET_NAME,

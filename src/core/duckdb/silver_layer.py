@@ -4,7 +4,6 @@ from datetime import datetime
 import duckdb
 from dotenv import load_dotenv
 from prefect import flow, task
-from prefect_gcp.cloud_storage import GcsBucket
 
 # Load environment variables from .env file
 load_dotenv()
@@ -16,7 +15,6 @@ BUCKET_NAME = os.getenv("GCS_BUCKET_NAME")
 BUCKET_PATH_BRONZE = os.getenv("GCS_BUCKET_PATH_BRONZE")
 BUCKET_PATH_SILVER = os.getenv("GCS_BUCKET_PATH_SILVER")
 BUCKET_PATH_GOLD = os.getenv("GCS_BUCKET_PATH_GOLD")
-
 
 @task
 def setup_duckdb_connection(
