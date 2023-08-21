@@ -45,4 +45,4 @@ def run_corner_shop_flow(items: list):
 if __name__ == "__main__":
     from core.cornershop.items import items_list
 
-    run_corner_shop_flow(['haribo'])
+    run_corner_shop_flow(items_list)
