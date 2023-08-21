@@ -10,6 +10,7 @@ load_dotenv()
 GCP_CREDENTIALS_PATH = os.getenv("GCP_CREDENTIALS_PATH")
 BUCKET_NAME = os.getenv("GCS_BUCKET_NAME")
 
+
 def load_service_account_info(service_account_file):
     # Check if service_account_file exists
     if not os.path.isfile(service_account_file):
@@ -45,6 +46,6 @@ def save_bucket(credentials_block, bucket_name, block_name):
 
 if __name__ == "__main__":
     service_account_info = load_service_account_info(GCP_CREDENTIALS_PATH)
-    
+
     credentials_block = save_credentials(service_account_info, "default")
     save_bucket(credentials_block, BUCKET_NAME, "default")
