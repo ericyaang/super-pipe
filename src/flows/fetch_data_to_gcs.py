@@ -49,7 +49,7 @@ def load_to_parquet_and_upload_to_gcs(data: list[dict]) -> str:
 from core.cornershop.main import fetch_corner_shop_data    
 from time import perf_counter
 
-@flow(name="CornerShop Main Flow", log_prints=True)
+@flow(name="CornerShop-Fetch-Data-to-GCS", log_prints=True)
 def fetch_data_to_gcs(items: list):
     logger = get_run_logger()
 
