@@ -37,6 +37,10 @@ on:
         required: false
         default: "default"
         type: string
+      bucket_name:
+        description: 'Name of the bucket'
+        required: false
+        default: "cornershop-raw"            
       deployment:
         description: 'Prefect deployment name (could reference environment or branch name e.g. dev or prod)'
         required: false
@@ -49,24 +53,14 @@ on:
         type: string
 jobs:
   deploy-container:
-    runs-on: ubuntu-latest  
-    environment: 
-      name: dev                                               
+    runs-on: ubuntu-latest                                              
     steps:
       - uses: actions/checkout@v3
       - id: deploy-container
         uses: ./.github/actions/deploy-container
         with:
           prefect_api_key: ${{ secrets.PREFECT_API_KEY }}
-          prefect_api_url: ${{ secrets.PREFECT_API_URL }}
-          gcs_s3_endpoint: ${{ secrets.GCS_S3_ENDPOINT }}
-          gcs_access_key: ${{ secrets.GCS_ACCESS_KEY }}
-          gcs_secret: ${{ secrets.GCS_SECRET }}
-          gcs_bucket_name: ${{ secrets.GCS_BUCKET_NAME }}
-          gcs_bucket_path_bronze: ${{ secrets.GCS_BUCKET_PATH_BRONZE }}
-          gcs_bucket_path_silver: ${{ secrets.GCS_BUCKET_PATH_SILVER }}
-          gcs_bucket_path_gold: ${{ secrets.GCS_BUCKET_PATH_GOLD }}
-          bq_dataset_name: ${{ secrets.BQ_DATASET_NAME }}           
+          prefect_api_url: ${{ secrets.PREFECT_API_URL }}    
           artifact_repository: ${{ github.event.inputs.artifact_repository }}  # optional
           region: ${{ github.event.inputs.region }}  # optional
           gcp_credentials_json: ${{ secrets.GCP_CREDENTIALS }}
@@ -92,9 +86,7 @@ jobs:
         run: echo "matrix=$(ls src/flows/*.py | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
   deploy:
     needs: list-flows
-    runs-on: ubuntu-latest   
-    environment: 
-      name: dev       
+    runs-on: ubuntu-latest        
     strategy:
       matrix:
         flows: ${{ fromJson(needs.list-flows.outputs.matrix) }}
@@ -108,15 +100,7 @@ jobs:
         uses: ./.github/actions/deploy-flows
         with:
           prefect_api_key: ${{ secrets.PREFECT_API_KEY }}
-          prefect_api_url: ${{ secrets.PREFECT_API_URL }}
-          gcs_s3_endpoint: ${{ secrets.GCS_S3_ENDPOINT }}
-          gcs_access_key: ${{ secrets.GCS_ACCESS_KEY }}
-          gcs_secret: ${{ secrets.GCS_SECRET }}
-          gcs_bucket_name: ${{ secrets.GCS_BUCKET_NAME }}
-          gcs_bucket_path_bronze: ${{ secrets.GCS_BUCKET_PATH_BRONZE }}
-          gcs_bucket_path_silver: ${{ secrets.GCS_BUCKET_PATH_SILVER }}
-          gcs_bucket_path_gold: ${{ secrets.GCS_BUCKET_PATH_GOLD }}
-          bq_dataset_name: ${{ secrets.BQ_DATASET_NAME }}                     
+          prefect_api_url: ${{ secrets.PREFECT_API_URL }}                 
           flow_entrypoint: ${{ steps.flow.outputs.entrypoint }}
           deployment: ${{ github.event.inputs.deployment }} # optional
           queue: ${{ github.event.inputs.queue }} # optional

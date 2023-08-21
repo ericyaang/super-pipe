@@ -13,7 +13,7 @@ inputs:
   bucket_name:
     description: 'Name of the Bucket'
     required: false
-    default: "cornershp-raw"
+    default: "cornershop-raw"
   bucket_block_name:
     description: 'Name of the bucket block name'
     required: false
