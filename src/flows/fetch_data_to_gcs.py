@@ -2,7 +2,8 @@ from datetime import datetime
 import pandas as pd
 from prefect import flow, get_run_logger, task
 from prefect_gcp.cloud_storage import GcsBucket
-
+from core.cornershop.main import fetch_corner_shop_data
+from time import perf_counter
 
 @task(name="Convert-Data-to-Pandas-DataFrame")
 def convert_data_to_pandas_dataframe(data: list[dict]) -> pd.DataFrame:
@@ -13,9 +14,7 @@ def convert_data_to_pandas_dataframe(data: list[dict]) -> pd.DataFrame:
 def load_df_to_parquet_and_upload_to_gcs(
     df, serialization_format: str = "parquet"
 ) -> None:
-    gcs_bucket_block = GcsBucket.load(
-        "default"
-    )  # <--- your bucket block name from /utils/create_blocks.py
+    gcs_bucket_block = GcsBucket.load("default")  # <--- your bucket block name
 
     DATETIME_UPLOADED = datetime.now().strftime("year=%Y/month=%m/day=%d")
     HOUR_UPLOADED = datetime.now().strftime("%H%M%S")
@@ -27,7 +26,6 @@ def load_df_to_parquet_and_upload_to_gcs(
         df, to_path=destination_gcs_path, serialization_format=serialization_format
     )
     return destination_gcs_path
-
 
 @flow(name="Load-to-Parquet-and-Upload-to-GCS")
 def load_to_parquet_and_upload_to_gcs(data: list[dict]) -> str:
@@ -44,10 +42,6 @@ def load_to_parquet_and_upload_to_gcs(data: list[dict]) -> str:
     logger.info("---Finished Loading Data to Parquet File in GCS---")
 
     return gcs_filename
-
-###
-from core.cornershop.main import fetch_corner_shop_data    
-from time import perf_counter
 
 @flow(name="CornerShop-Fetch-Data-to-GCS", log_prints=True)
 def fetch_data_to_gcs(items: list):
@@ -68,8 +62,9 @@ def fetch_data_to_gcs(items: list):
         load_to_parquet_and_upload_to_gcs(data)
     end_time = perf_counter()
     total_time = end_time - start_time
-    logger.info(f"---Completed Cornershop Main Flow in {total_time:.3f} seconds")
+    logger.info(f"---Completed in {total_time:.3f} seconds")
+
 
 if __name__ == "__main__":
-    fetch_data_to_gcs(["haribo"])
-
+    from core.cornershop.items import items_list
+    fetch_data_to_gcs(items_list)
