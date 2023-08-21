@@ -5,6 +5,7 @@ from prefect_gcp.cloud_storage import GcsBucket
 from core.cornershop.main import fetch_corner_shop_data
 from time import perf_counter
 
+
 @task(name="Convert-Data-to-Pandas-DataFrame")
 def convert_data_to_pandas_dataframe(data: list[dict]) -> pd.DataFrame:
     return pd.DataFrame(data=data)
@@ -27,6 +28,7 @@ def load_df_to_parquet_and_upload_to_gcs(
     )
     return destination_gcs_path
 
+
 @flow(name="Load-to-Parquet-and-Upload-to-GCS")
 def load_to_parquet_and_upload_to_gcs(data: list[dict]) -> str:
     logger = get_run_logger()
@@ -42,6 +44,7 @@ def load_to_parquet_and_upload_to_gcs(data: list[dict]) -> str:
     logger.info("---Finished Loading Data to Parquet File in GCS---")
 
     return gcs_filename
+
 
 @flow(name="CornerShop-Fetch-Data-to-GCS", log_prints=True)
 def fetch_data_to_gcs(items: list):
@@ -67,4 +70,5 @@ def fetch_data_to_gcs(items: list):
 
 if __name__ == "__main__":
     from core.cornershop.items import items_list
+
     fetch_data_to_gcs(items_list)

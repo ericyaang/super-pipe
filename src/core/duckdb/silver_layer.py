@@ -16,6 +16,7 @@ BUCKET_PATH_BRONZE = os.getenv("GCS_BUCKET_PATH_BRONZE")
 BUCKET_PATH_SILVER = os.getenv("GCS_BUCKET_PATH_SILVER")
 BUCKET_PATH_GOLD = os.getenv("GCS_BUCKET_PATH_GOLD")
 
+
 @task
 def setup_duckdb_connection(
     ACCESS, SECRET, db_path: str = ":memory:", read_only: str = False

@@ -7,15 +7,16 @@ from flows.run_corner_shop_flow import run_corner_shop_flow
 from prefect.infrastructure.container import DockerContainer, ImagePullPolicy
 import os
 from dotenv import load_dotenv
+
 load_dotenv()
 
 from prefect.filesystems import GitHub
 
-github_block = GitHub.load('corner-src')
+github_block = GitHub.load("corner-src")
 
 docker_container_block = DockerContainer(
     name="docker-container",
-    image="", # insert your image here
+    image="",  # insert your image here
     auto_remove=True,
     # We want to always use our local image, so we NEVER pull it
     image_pull_policy=ImagePullPolicy.NEVER,

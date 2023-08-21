@@ -21,7 +21,7 @@ deployment = Deployment.build_from_flow(
     schedule=CronSchedule(cron="10 12 * * *", timezone="America/Sao_Paulo"),
     work_queue_name="default",
     work_pool_name="default-agent-pool",
-    path="src"
+    path="src",
 )
 
 if __name__ == "__main__":

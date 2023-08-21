@@ -1,6 +1,7 @@
 from datetime import datetime
 import re
 
+
 def handle_path_date(date: str = "today"):
     """
     Handle date based on given date string.
@@ -16,7 +17,7 @@ def handle_path_date(date: str = "today"):
         return "year=*/month=*/day=*"
     elif date.lower() == "today":
         return datetime.now().strftime("year=%Y/month=%m/day=%d")
-    elif re.match(r'^year=\d{4}/month=\d{2}/day=\d{2}$', date):
+    elif re.match(r"^year=\d{4}/month=\d{2}/day=\d{2}$", date):
         return date
     else:
         year, month, day = map(int, date.split("-"))
@@ -24,4 +25,4 @@ def handle_path_date(date: str = "today"):
 
 
 def transform_date_string(date_str: str) -> str:
-    return "_".join(re.findall(r'\d+', date_str))
+    return "_".join(re.findall(r"\d+", date_str))
