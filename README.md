@@ -41,4 +41,26 @@ With a multitude of products from various supermarkets, there's a need to have a
 - **Prefect Agent:** This component deploys a Docker container equipped with a Prefect agent, enabling flow runs. By default, it configures the flows as serverless containers via Google Cloud Run, offering flexibility and scalability. Any necessary adjustments in resource allocation can be done via the Prefect UI.
 - **Prefect Blocks & Flows:** Both blocks and flows under Prefect are auto-deployed, streamlining the initialization process.
 
+### Dataset
+
+| Column       | Description                                                |
+|--------------|------------------------------------------------------------|
+| date         | Date of the collection record                             |
+| aisle_name   | Name of the aisle in the store                            |
+| product_name | Name of the product                                       |
+| brand        | Brand of the product                                      |
+| price        | Price of the product in R$                                |
+| package      | Information about the product's packaging (ml/kg/packages/etc)|
+| store_name   | Name of the store (supermarket, pharmacy, etc)            |
+| city         | City where the store is located                           |
+| search_term  | Search term used to find the product via the API          |
+
+### Data Modeling
+
+![EtLT-map](img\data_modeling.svg)
+
+- **product_info**: This table provides detailed information about products.
+- **store_info**: This table gives insights about different stores.
+- **transaction_info**: This is a fact table that logs transaction data with references to both `product_info` and `store_info`.
+
 
