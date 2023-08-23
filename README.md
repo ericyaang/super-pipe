@@ -57,7 +57,7 @@ With a multitude of products from various supermarkets, there's a need to have a
 
 ### Data Modeling
 
-![EtLT-map](img\data_modeling.svg)
+![EtLT-map](img/data_modeling.svg)
 
 - **product_info**: This table provides detailed information about products.
 - **store_info**: This table gives insights about different stores.
