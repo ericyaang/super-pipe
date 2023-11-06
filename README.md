@@ -4,6 +4,10 @@ The Cornershop EtLT Pipeline is designed to process data from 540 distinct produ
 
 ## Motivation
 With a multitude of products from various supermarkets, there's a need to have a robust pipeline that can extract, transform, load, and then transform the data again, ensuring it's ready for analytics and insights derivation.
+
+### **Data Pipeline**
+![data-pipeline](https://github.com/ericyaang/super-pipe/blob/main/img/data-pipeline.png)
+
 ### **EtLT Components:**
 
 ![EtLT-map](https://kroki.io/graphviz/svg/eNptj01LxEAMhu_7K0JPLbigZ6lQ7SDCIKjjaRFJ27gdHGeWmXRZlf3vTls6fuAlCW_yJG86vfW46-EaPlfg0b522pfq8nwF1nUEm9DjjsrGHZ6iFIZmnm7NEJj88-lIGWzIlJlgqaDyba-ZWh48ZZEQsFna-YE9tlxk4yZOOufxanhx_q2ANdzGjEZ_IGtnp0mZJmXusJtxlcRcFQsf8Stn9-TDwgpYX8RTMcgxqCgd__ni7McXj4E83DtDYbRff_uvkRGE3WpL8cK0vq5-dyuL5j1wOIGHOwk17WNV3fyFJlMiVZwqOa9MRo9fJ8d9fQ==)
