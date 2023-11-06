@@ -5,7 +5,7 @@ The Cornershop EtLT Pipeline is designed to process data from 540 distinct produ
 ## Motivation
 With a multitude of products from various supermarkets, there's a need to have a robust pipeline that can extract, transform, load, and then transform the data again, ensuring it's ready for analytics and insights derivation.
 
-### **Data Pipeline**
+## **Data Pipeline**
 ![data-pipeline](https://github.com/ericyaang/super-pipe/blob/main/img/data-pipeline.png)
 
 ### **EtLT Components:**
@@ -45,7 +45,7 @@ With a multitude of products from various supermarkets, there's a need to have a
 - **Prefect Agent:** This component deploys a Docker container equipped with a Prefect agent, enabling flow runs. By default, it configures the flows as serverless containers via Google Cloud Run, offering flexibility and scalability. Any necessary adjustments in resource allocation can be done via the Prefect UI.
 - **Prefect Blocks & Flows:** Both blocks and flows under Prefect are auto-deployed, streamlining the initialization process.
 
-### Dataset
+## Dataset
 
 | Column       | Description                                                |
 |--------------|------------------------------------------------------------|
@@ -59,7 +59,7 @@ With a multitude of products from various supermarkets, there's a need to have a
 | city         | City where the store is located                           |
 | search_term  | Search term used to find the product via the API          |
 
-### Data Modeling
+## Data Modeling
 
 ![EtLT-map](img/data_modeling.svg)
 
